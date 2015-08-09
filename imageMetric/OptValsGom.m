@@ -59,32 +59,32 @@ TMean(TMean > opts.UBounds) = opts.UBounds(TMean > opts.UBounds);
 TMean(TMean < opts.LBounds) = opts.LBounds(TMean < opts.LBounds);
 rangeT(rangeT > 0.7*opts.UBounds) = 0.7*opts.UBounds(rangeT > 0.7*opts.UBounds);
 
-[TOut, ~, ~, ~, ~, ~, TBoot] = cmaes(@(tform) runGomMetric( tform, K, scans, images, invert ), TMean, rangeT, opts);
+TOut = cmaes(@(tform) runGomMetric( tform, K, scans, images, invert ), TMean, rangeT, opts);
 
-TBoot = TBoot(:);
+%TBoot = TBoot(:);
 TOut = TOut(:);
 
-% TBoot = zeros(10,7);
-%
-% bootMax = 0;
-% for i = 1:size(scans,1)
-%     bootMax = max(bootMax,size(scans{i},1));
-% end
-% 
-% for i = 1:10
-%     i
-%     boot = datasample(1:bootMax,bootMax);
-%     boot = sort(boot);
-%     [b,idx] = unique(boot);
-%     idx = [idx;bootMax+1];
-%     boot = zeros(bootMax,1);
-%     boot(b) = diff(idx);
-%     boot = gpuArray(single(boot));
-% 
-%     %TBoot(i,:) = cmaes(@(tform) runGomMetricBoot(tform, K, scans, images, boot, invert), TOut, rangeT, opts);
-%     TBoot(i,:) = fminsearch(@(tform) runGomMetricBoot(tform, K, scans, images, boot, invert), TOut);
-%     TBoot(i,:) = [TBoot(i,1:3)/norm(TBoot(i,1:3)), TBoot(i,4).*norm(TBoot(i,1:3)), TBoot(i,5:end)];
-%     TBoot(i,1:4) = TBoot(i,1:4).*sign(TBoot(i,4));
-% end
-% TBoot = var(TBoot);
+TBoot = zeros(10,7);
+
+bootMax = 0;
+for i = 1:size(scans,1)
+    bootMax = max(bootMax,size(scans{i},1));
+end
+
+for i = 1:10
+    i
+    boot = datasample(1:bootMax,bootMax);
+    boot = sort(boot);
+    [b,idx] = unique(boot);
+    idx = [idx;bootMax+1];
+    boot = zeros(bootMax,1);
+    boot(b) = diff(idx);
+    boot = gpuArray(single(boot));
+
+    %TBoot(i,:) = cmaes(@(tform) runGomMetricBoot(tform, K, scans, images, boot, invert), TOut, rangeT, opts);
+    TBoot(i,:) = fminsearch(@(tform) runGomMetricBoot(tform, K, scans, images, boot, invert), TOut);
+    TBoot(i,:) = [TBoot(i,1:3)/norm(TBoot(i,1:3)), TBoot(i,4).*norm(TBoot(i,1:3)), TBoot(i,5:end)];
+    TBoot(i,1:4) = TBoot(i,1:4).*sign(TBoot(i,4));
+end
+TBoot = var(TBoot);
 

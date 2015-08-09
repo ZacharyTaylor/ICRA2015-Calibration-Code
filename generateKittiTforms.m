@@ -4,7 +4,7 @@
 %% user set variables
 
 %path to data
-kittiPath = 'D:\2011_10_03_drive_0027_extract\';
+kittiPath = 'C:\2011_09_28\2011_09_28_drive_0001_extract\';
 
 %Sets if the sensor transforms will be plotted
 plotTforms = false;
@@ -15,7 +15,7 @@ addAll();
 %% Run motion estimation
 
 %do things in parrallel to save time
-parfor i = 1:5
+parfor i = 1:6
     switch i
         case 1
             kittiVelData = genKittiVel(kittiPath, plotTforms, []);

@@ -1,16 +1,16 @@
 %% user set variables
 
 %data range (start excluded as not all sensors running)
-range = 50:4000;
+range = 10:100;
 
 %number of scans to use
-scans = 500;
+scans = 50;
 
 %number of times to perform test
 reps = 100;
 
 %number of bootstrap iterations to perform
-bootNum = 100;
+bootNum = 10;
 
 %% setup folders
 addAll();

@@ -6,10 +6,10 @@
 %% user set variables
 
 %data range (start excluded as not all sensors running)
-range = 50:4000;
+range = 10:100;
 
 %number of scans to use
-scansRange = 50:50:1000;
+scansRange = 10:10:50;
 
 %number of times to perform test
 reps = 100;
