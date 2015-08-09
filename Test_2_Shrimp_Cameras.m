@@ -1,7 +1,7 @@
 %% user set variables
 
 %data range (start excluded as not all sensors running)
-range = 200:1100;
+range = 10:100;
 
 %number of scans to use
 scans = 200;

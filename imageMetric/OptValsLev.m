@@ -1,7 +1,7 @@
 function [ TOut, TBoot ] = OptValsLev(TMean,TVar,lidar,cam, invert)
 
 %% get data
-matchNum = 50;
+matchNum = 25;
 dataNum = datasample(1:size(lidar.files,1),matchNum,'Replace',false);
 
 %load images

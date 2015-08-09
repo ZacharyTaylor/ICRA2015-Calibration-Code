@@ -4,7 +4,7 @@
 %% user set variables
 
 %path to data
-kittiPath = 'C:\2011_09_28\2011_09_28_drive_0001_extract\';
+kittiPath = 'C:\Users\Zachary\Documents\Datasets\Kitti\2011_09_26_drive_0035_extract\';
 
 %Sets if the sensor transforms will be plotted
 plotTforms = false;

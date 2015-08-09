@@ -1,7 +1,7 @@
 function [ TOut, TBoot ] = OptValsGom(TMean,TVar,lidar,cam, invert)
 
 %% get data
-matchNum = 50;
+matchNum = 25;
 dataNum = datasample(1:size(lidar.files,1),matchNum,'Replace',false);
 
 %load images
@@ -64,7 +64,7 @@ TOut = cmaes(@(tform) runGomMetric( tform, K, scans, images, invert ), TMean, ra
 %TBoot = TBoot(:);
 TOut = TOut(:);
 
-TBoot = zeros(10,7);
+TBoot = zeros(10,6);
 
 bootMax = 0;
 for i = 1:size(scans,1)
@@ -82,7 +82,7 @@ for i = 1:10
     boot = gpuArray(single(boot));
 
     %TBoot(i,:) = cmaes(@(tform) runGomMetricBoot(tform, K, scans, images, boot, invert), TOut, rangeT, opts);
-    TBoot(i,:) = fminsearch(@(tform) runGomMetricBoot(tform, K, scans, images, boot, invert), TOut);
+    TBoot(i,:) = fminsearch(@(tform) runGomMetricBoot(tform, K, scans, images, boot, invert), TOut)';
     TBoot(i,:) = [TBoot(i,1:3)/norm(TBoot(i,1:3)), TBoot(i,4).*norm(TBoot(i,1:3)), TBoot(i,5:end)];
     TBoot(i,1:4) = TBoot(i,1:4).*sign(TBoot(i,4));
 end
